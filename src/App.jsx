@@ -14,32 +14,32 @@ function App() {
   }
 
   useEffect(() => {
-    async function fetchApiData() {
-      const NASA_API_KEY = import.meta.env.VITE_NASA_API_KEY;
-      const url = `https://api.nasa.gov/planetary/apod?api_key=${NASA_API_KEY}`;
+     async function fetchApiData() {
+       const NASA_API_KEY = import.meta.env.VITE_NASA_API_KEY;
+       const url = `https://api.nasa.gov/planetary/apod?api_key=${NASA_API_KEY}`;
 
-      const today = (new Date()).toDateString();
-      const localKey = `NASA-${today}`;
-      if (localStorage.getItem(localKey)) {
-        const apiData = JSON.parse(localStorage.getItem(localKey));
-        setData(apiData);
-        console.log('Fetched from cache today')
-        return
+       const today = (new Date()).toDateString();
+       const localKey = `NASA-${today}`;
+        if (localStorage.getItem(localKey)) {
+           const apiData = JSON.parse(localStorage.getItem(localKey));
+           setData(apiData);
+           console.log('Fetched from cache today');
+           return
       }
-      localStorage.clear();
+          localStorage.clear();
       
-      try {
-        const response = await fetch(url);
-        const apiData = await response.json();
-        localStorage.setItem(localKey, JSON.stringify(apiData));
-        setData(apiData);
-        console.log('Fetched from API');
+        try {
+          const response = await fetch(url);
+          const apiData = await response.json();
+          localStorage.setItem(localKey, JSON.stringify(apiData));
+          setData(apiData);
+          console.log('Fetched from API');
       } catch (err) {
-        console.log(err.message);
-      }
-    }
-    fetchApiData();
-  }, []);
+          console.log(err.message);
+        }
+     }
+     fetchApiData();
+   }, []);
       
      
 
